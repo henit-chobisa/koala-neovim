@@ -165,42 +165,55 @@ function M.setup()
   -- JSON scopes: keyword, keyword.control, keyword.operator,
   --   storage, storage.type, storage.modifier,
   --   entity.name.tag, meta.tag.sgml, meta.selector
-  hl(0, "@keyword",                { fg = c.navy, bold = true })
-  hl(0, "@keyword.function",       { fg = c.navy, bold = true })  -- storage.type (function/class)
-  hl(0, "@keyword.operator",       { fg = c.navy, bold = true })  -- keyword.operator
-  hl(0, "@keyword.import",         { fg = c.bronze, bold = true }) -- import/export → BRONZE per user
-  hl(0, "@keyword.export",         { fg = c.bronze, bold = true }) -- import/export → BRONZE per user
-  hl(0, "@keyword.return",         { fg = c.navy, bold = true })
-  hl(0, "@keyword.directive",      { fg = c.bronze, bold = true }) -- directives → BRONZE per user
-  hl(0, "@keyword.conditional",    { fg = c.navy, bold = true })
-  hl(0, "@keyword.repeat",        { fg = c.navy, bold = true })
-  hl(0, "@keyword.exception",      { fg = c.navy, bold = true })
-  hl(0, "@keyword.type",           { fg = c.navy, bold = true })  -- storage.type
-  hl(0, "@keyword.modifier",       { fg = c.navy, bold = true })  -- storage.modifier
-  hl(0, "@conditional",            { fg = c.navy, bold = true })
-  hl(0, "@repeat",                 { fg = c.navy, bold = true })
-  hl(0, "@label",                  { fg = c.navy, bold = true })
-  hl(0, "@operator",               { fg = c.navy, bold = true })
-  hl(0, "@exception",              { fg = c.navy, bold = true })
-  hl(0, "@include",                { fg = c.bronze, bold = true }) -- import → BRONZE per user
-  hl(0, "@storageclass",           { fg = c.navy, bold = true })
-  hl(0, "@tag",                    { fg = c.navy, bold = true })  -- entity.name.tag
-  hl(0, "@tag.delimiter",          { fg = c.ink })                -- punctuation in tags → INK
+  --
+  -- Mapped from actual ecma/highlights.scm + typescript/highlights.scm:
+  hl(0, "@keyword",                    { fg = c.navy, bold = true })  -- const, let, var, break, extends, get, set, static, with, debugger
+  hl(0, "@keyword.function",           { fg = c.navy, bold = true })  -- function
+  hl(0, "@keyword.operator",           { fg = c.navy, bold = true })  -- new, delete, in, instanceof, typeof, keyof, satisfies, as
+  hl(0, "@keyword.import",             { fg = c.navy, bold = true })  -- import, from, as, export
+  hl(0, "@keyword.export",             { fg = c.navy, bold = true })  -- (fallback if parser uses this)
+  hl(0, "@keyword.return",             { fg = c.navy, bold = true })  -- return, yield
+  hl(0, "@keyword.coroutine",          { fg = c.navy, bold = true })  -- async, await
+  hl(0, "@keyword.conditional",        { fg = c.navy, bold = true })  -- if, else, switch, case
+  hl(0, "@keyword.conditional.ternary", { fg = c.navy, bold = true }) -- ? :  in ternary
+  hl(0, "@keyword.repeat",             { fg = c.navy, bold = true })  -- for, of, do, while, continue
+  hl(0, "@keyword.exception",          { fg = c.navy, bold = true })  -- throw, try, catch, finally
+  hl(0, "@keyword.type",               { fg = c.navy, bold = true })  -- class, namespace, interface, enum
+  hl(0, "@keyword.modifier",           { fg = c.navy, bold = true })  -- abstract, private, protected, public, readonly
+  hl(0, "@keyword.directive",          { fg = c.navy, bold = true })  -- hash_bang, "use strict"
+  -- Legacy treesitter group names (older nvim-treesitter versions)
+  hl(0, "@conditional",               { fg = c.navy, bold = true })
+  hl(0, "@repeat",                     { fg = c.navy, bold = true })
+  hl(0, "@label",                      { fg = c.navy, bold = true })
+  hl(0, "@operator",                   { fg = c.navy, bold = true })
+  hl(0, "@exception",                  { fg = c.navy, bold = true })
+  hl(0, "@include",                    { fg = c.navy, bold = true })
+  hl(0, "@storageclass",               { fg = c.navy, bold = true })
+  -- Tags (HTML/JSX)
+  hl(0, "@tag",                        { fg = c.navy, bold = true })  -- entity.name.tag
+  hl(0, "@tag.delimiter",              { fg = c.ink })                -- < > / in tags → INK
+
+  -- Module identifiers (from ecma queries)
+  hl(0, "@module",                     { fg = c.ink })
+  hl(0, "@module.builtin",             { fg = c.ink })
 
   -- ── DATA (#800000) ────────────────────────────────────────────
   -- JSON scopes: string, constant.numeric, constant.language,
   --   constant.character, constant.other, string.quoted
   hl(0, "@string",                 { fg = c.maroon })
   hl(0, "@string.regex",           { fg = c.maroon })
+  hl(0, "@string.regexp",          { fg = c.maroon })
   hl(0, "@string.escape",          { fg = c.maroon })
   hl(0, "@string.special",         { fg = c.maroon })
+  hl(0, "@string.special.url",     { fg = c.maroon })
   hl(0, "@character",              { fg = c.maroon })
+  hl(0, "@character.special",      { fg = c.maroon })
   hl(0, "@number",                 { fg = c.maroon })
   hl(0, "@number.float",           { fg = c.maroon })
   hl(0, "@boolean",                { fg = c.maroon })         -- constant.language → DATA
   hl(0, "@float",                  { fg = c.maroon })
   hl(0, "@constant",               { fg = c.maroon })
-  hl(0, "@constant.builtin",       { fg = c.maroon })         -- constant.language → DATA
+  hl(0, "@constant.builtin",       { fg = c.maroon })         -- null, undefined → DATA
   hl(0, "@constant.macro",         { fg = c.maroon })
 
   -- ── CLASSES (#006600 bold) ─────────────────────────────────────
@@ -227,6 +240,7 @@ function M.setup()
   -- ── ASIDE (#6e7781 italic) ─────────────────────────────────────
   -- JSON scopes: comment, punctuation.definition.comment
   hl(0, "@comment",                { fg = c.slate, italic = true })
+  hl(0, "@comment.documentation",  { fg = c.slate, italic = true })
 
   -- ── MARKUP ─────────────────────────────────────────────────────
   hl(0, "@text.strong",            { fg = c.ink, bold = true })
@@ -248,23 +262,44 @@ function M.setup()
 
   -- ╔══════════════════════════════════════════════════════════════╗
   -- ║  LSP SEMANTIC TOKENS                                        ║
+  -- ║                                                              ║
+  -- ║  In Neovim, LSP semantic tokens OVERRIDE treesitter.         ║
+  -- ║  We must define every LSP token type to match our palette,   ║
+  -- ║  otherwise tokens fall through to wrong defaults.            ║
   -- ╚══════════════════════════════════════════════════════════════╝
 
+  -- INK group (variables, functions, parameters, properties)
   hl(0, "@lsp.type.variable",      { fg = c.ink })
   hl(0, "@lsp.type.property",      { fg = c.ink })
   hl(0, "@lsp.type.function",      { fg = c.ink })
   hl(0, "@lsp.type.method",        { fg = c.ink })
   hl(0, "@lsp.type.parameter",     { fg = c.ink })
-  -- Restore @lsp.type.keyword to navy bold so that keywords the LSP
-  -- recognizes (like `private`) get properly colored.
-  -- This matches the VS Code JSON: keyword → #0b0080 bold.
-  hl(0, "@lsp.type.keyword",       { fg = c.navy, bold = true })
   hl(0, "@lsp.type.namespace",     { fg = c.ink })
+  hl(0, "@lsp.type.event",         { fg = c.ink })
+
+  -- STRUCTURE group — keywords via LSP
+  -- NOTE: We clear @lsp.type.keyword so treesitter's more specific
+  -- groups (@keyword.import, @keyword.coroutine, etc.) are NOT
+  -- overridden by a blanket LSP "keyword" token. Instead, treesitter
+  -- handles all keyword coloring with the correct specific captures.
+  hl(0, "@lsp.type.keyword",       {})
+  hl(0, "@lsp.type.operator",      {})  -- let treesitter handle
+
+  -- DATA group
   hl(0, "@lsp.type.string",        { fg = c.maroon })
   hl(0, "@lsp.type.number",        { fg = c.maroon })
   hl(0, "@lsp.type.enumMember",    { fg = c.maroon })  -- constant → DATA
+  hl(0, "@lsp.type.regexp",        { fg = c.maroon })
+
+  -- TYPES group
   hl(0, "@lsp.type.decorator",     { fg = c.bronze, bold = true })
-  hl(0, "@lsp.mod.declaration",    {})  -- don't override; let the type-based hl win
+  hl(0, "@lsp.type.macro",         { fg = c.navy, bold = true })
+
+  -- ASIDE group
+  hl(0, "@lsp.type.comment",       { fg = c.slate, italic = true })
+
+  -- Don't let declaration modifier override the type-based highlight
+  hl(0, "@lsp.mod.declaration",    {})
 
   -- ╔══════════════════════════════════════════════════════════════╗
   -- ║  DIAGNOSTICS                                                ║
