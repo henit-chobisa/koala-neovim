@@ -19,7 +19,7 @@ function M.setup()
         Cursor = { fg = palette.bg, bg = palette.cursor },
         CursorLine = { bg = palette.bg_highlight },
         CursorColumn = { bg = palette.bg_highlight },
-        Directory = { fg = palette.navy },
+        Directory = { fg = palette.navy, bold = true },
         DiffAdd = { fg = palette.green, bg = palette.bg_highlight },
         DiffChange = { fg = palette.navy, bg = palette.bg_highlight },
         DiffDelete = { fg = palette.red, bg = palette.bg_highlight },
@@ -31,7 +31,7 @@ function M.setup()
         Folded = { fg = palette.slate, bg = palette.sidebar_bg },
         FoldColumn = { fg = palette.border, bg = palette.bg },
         SignColumn = { bg = palette.bg },
-        IncSearch = { fg = palette.bg, bg = palette.navy },
+        IncSearch = { fg = palette.activity_fg, bg = palette.activity_bar },
         LineNr = { fg = palette.line_nr },
         CursorLineNr = { fg = palette.line_nr_active, bold = true },
         MatchParen = { fg = palette.navy, bg = palette.bg_highlight, bold = true },
@@ -39,7 +39,7 @@ function M.setup()
         MoreMsg = { fg = palette.navy },
         NonText = { fg = palette.slate },
         Pmenu = { fg = palette.inky_black, bg = palette.float_bg },
-        PmenuSel = { fg = palette.statusline_fg, bg = palette.float_border },
+        PmenuSel = { fg = palette.selection_fg, bg = palette.selection_strong },
         PmenuSbar = { bg = palette.float_bg },
         PmenuThumb = { bg = palette.float_border },
         Question = { fg = palette.navy },
@@ -59,9 +59,9 @@ function M.setup()
         Visual = { bg = palette.selection },
         VisualNOS = { bg = palette.selection },
         WarningMsg = { fg = palette.yellow },
-        WildMenu = { fg = palette.statusline_fg, bg = palette.navy },
+        WildMenu = { fg = palette.selection_fg, bg = palette.selection_strong },
 
-        -- Syntax (Standard)
+        -- Syntax (Precise mapping to VS Code TokenGroups)
         Comment = { fg = palette.slate, italic = true },
         Constant = { fg = palette.maroon },
         String = { fg = palette.maroon },
@@ -82,7 +82,7 @@ function M.setup()
         Exception = { fg = palette.navy, bold = true },
 
         PreProc = { fg = palette.navy },
-        Include = { fg = palette.bronze, bold = true },
+        Include = { fg = palette.bronze, bold = true }, -- Ported to "Orange/Bronze" per User
         Define = { fg = palette.navy, bold = true },
         Macro = { fg = palette.navy, bold = true },
         PreCondit = { fg = palette.navy, bold = true },
@@ -104,11 +104,10 @@ function M.setup()
         Error = { fg = palette.red, bg = palette.bg_highlight },
         Todo = { fg = palette.magenta, bold = true },
 
-        -- Treesitter
+        -- Treesitter (Explicitly mapped to match JSON tokens)
         ["@comment"] = { link = "Comment" },
         ["@constant"] = { link = "Constant" },
         ["@constant.builtin"] = { fg = palette.navy, bold = true },
-        ["@constant.macro"] = { link = "Constant" },
         ["@string"] = { link = "String" },
         ["@string.regex"] = { fg = palette.maroon },
         ["@string.escape"] = { fg = palette.maroon },
@@ -120,10 +119,8 @@ function M.setup()
         ["@function"] = { link = "Function" },
         ["@function.call"] = { link = "Function" },
         ["@function.builtin"] = { fg = palette.navy, bold = true },
-        ["@function.macro"] = { link = "Function" },
         ["@parameter"] = { fg = palette.inky_black },
         ["@method"] = { link = "Function" },
-        ["@method.call"] = { link = "Function" },
         ["@field"] = { fg = palette.inky_black },
         ["@property"] = { fg = palette.inky_black },
         ["@constructor"] = { fg = palette.forest_green, bold = true },
@@ -133,32 +130,27 @@ function M.setup()
         ["@label"] = { link = "Label" },
         ["@operator"] = { link = "Operator" },
         ["@keyword"] = { link = "Keyword" },
+        ["@keyword.function"] = { fg = palette.navy, bold = true },
         ["@keyword.import"] = { fg = palette.bronze, bold = true },
         ["@keyword.export"] = { fg = palette.bronze, bold = true },
-        ["@keyword.directive"] = { fg = palette.bronze, bold = true },
+        ["@keyword.operator"] = { fg = palette.navy, bold = true },
         ["@include"] = { fg = palette.bronze, bold = true },
-        ["@namespace"] = { fg = palette.inky_black },
         ["@exception"] = { link = "Exception" },
 
         ["@type"] = { link = "Type" },
         ["@type.builtin"] = { fg = palette.bronze, bold = true },
         ["@type.qualifier"] = { fg = palette.navy, bold = true },
-        ["@type.definition"] = { link = "Type" },
         ["@structure"] = { link = "Structure" },
         
         ["@class"] = { fg = palette.forest_green, bold = true },
 
         ["@variable"] = { fg = palette.inky_black },
         ["@variable.builtin"] = { fg = palette.navy, bold = true },
+        ["@variable.parameter"] = { fg = palette.inky_black },
 
-        ["@text"] = { fg = palette.inky_black },
-        ["@text.strong"] = { fg = palette.inky_black, bold = true },
-        ["@text.emphasis"] = { fg = palette.inky_black, italic = true },
-        ["@text.underline"] = { underline = true },
-        ["@text.title"] = { fg = palette.navy, bold = true },
-        ["@text.literal"] = { fg = palette.maroon },
-        ["@text.uri"] = { fg = palette.maroon, underline = true },
-        ["@text.reference"] = { fg = palette.navy },
+        ["@punctuation.delimiter"] = { fg = palette.inky_black },
+        ["@punctuation.bracket"] = { fg = palette.inky_black },
+        ["@punctuation.special"] = { fg = palette.inky_black },
 
         ["@tag"] = { fg = palette.navy, bold = true },
         ["@tag.attribute"] = { fg = palette.bronze },
@@ -173,11 +165,6 @@ function M.setup()
         DiagnosticUnderlineWarn = { sp = palette.yellow, undercurl = true },
         DiagnosticUnderlineInfo = { sp = palette.blue, undercurl = true },
         DiagnosticUnderlineHint = { sp = palette.slate, undercurl = true },
-        
-        -- GitSigns
-        GitSignsAdd = { fg = palette.green, bg = palette.bg },
-        GitSignsChange = { fg = palette.navy, bg = palette.bg },
-        GitSignsDelete = { fg = palette.red, bg = palette.bg },
     }
 
     for group, settings in pairs(highlights) do

@@ -1,24 +1,27 @@
 local M = {}
 
 M.colors = {
+    -- Core Canvas
     bg = "#dfdfdf",
     fg = "#2d2d2d",
     bg_highlight = "#c9c8c8",
-    find_match = "#F8E71C", -- highlighted find
+    find_match = "#F8E71C80", -- With transparency
     
-    -- UI
+    -- UI Containers
     border = "#c0c0c0",
     selection = "#bac4d4",
+    selection_strong = "#0b0080",
+    selection_fg = "#ffffff",
     
-    -- Syntax
-    inky_black = "#000000",
-    navy = "#0b0080",
-    maroon = "#800000",
-    forest_green = "#006600",
-    bronze = "#ae6000",
-    slate = "#6e7781",
+    -- Koala Syntax Palette
+    inky_black = "#000000",   -- CORE INK
+    navy = "#0b0080",         -- STRUCTURE
+    maroon = "#800000",       -- DATA
+    forest_green = "#006600", -- CLASSES
+    bronze = "#ae6000",       -- TYPES / (User's choice for Imports)
+    slate = "#6e7781",        -- ASIDE
     
-    -- Terminal / ANSI
+    -- ANSI Colors (Terminals)
     red = "#a31515",
     green = "#006600",
     yellow = "#9e5f00",
@@ -26,20 +29,31 @@ M.colors = {
     magenta = "#560090",
     cyan = "#005555",
     
-    -- Specific UI
+    -- Refined UI Specifics
     line_nr = "#808080",
     line_nr_active = "#284b63",
     cursor = "#284b63",
 
     sidebar_bg = "#d8d8d8",
     sidebar_fg = "#2d2d2d",
+    sidebar_header = "#cdcdcd",
+    
     panel_bg = "#d8d8d8",
+    panel_border = "#a8a8a8",
+    
     float_bg = "#e4e4e4",
     float_border = "#0b0080",
     
     statusline_bg = "#284b63",
     statusline_fg = "#ffffff",
+    
+    activity_bar = "#0078d4",
+    activity_fg = "#ffffff",
+    
+    breadcrumb = "#c7c7c7",
+    breadcrumb_fg = "#5d5d5d",
 
+    input_bg = "#d0d0d0",
     button_bg = "#0078d4",
 }
 
