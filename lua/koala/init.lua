@@ -12,47 +12,63 @@ function M.setup()
     transparent = false,
     italic_comments = true,
 
+    -- ═══════════════════════════════════════════════════════════
     -- Map Koala palette → vscode.nvim color variables
     --
-    -- From Koala-color-theme.json:
-    --   INK     #000000  →  variables, functions, punctuation
-    --   NAVY    #0b0080  →  keywords, storage, tags
-    --   MAROON  #800000  →  strings, numbers, constants
-    --   FOREST  #006600  →  class names
-    --   BRONZE  #ae6000  →  types, interfaces, attributes
-    --   SLATE   #6e7781  →  comments
+    -- How vscode.nvim uses these in LIGHT mode (from theme.lua):
+    --   vscBlue      → @keyword, @constructor, @boolean,
+    --                   @constant.builtin, @variable.builtin,
+    --                   Type, StorageClass, Typedef, @tag
+    --   vscPink      → @keyword.import, @keyword.conditional,
+    --                   @keyword.repeat, @keyword.return,
+    --                   @keyword.exception, Statement, Keyword,
+    --                   Include, Define, Conditional, Repeat
+    --   vscBlueGreen → @type, Structure, @module,
+    --                   @constant.macro, @attribute.builtin
+    --   vscLightBlue → @variable, @property, @field,
+    --                   @variable.parameter
+    --   vscYellow    → @function, @function.call,
+    --                   @function.method, @function.method.call
+    --   vscOrange    → @string (in light mode)
+    --   vscYellowOrange → strings (Vim standard String group)
+    --   vscLightRed  → @string.escape
+    --   vscLightGreen → @number, @number.float
+    --   vscGreen     → comments
+    --   vscGray      → line-level comments
+    --   vscViolet    → misc (spell, md bold in light)
+    -- ═══════════════════════════════════════════════════════════
     color_overrides = {
       -- Canvas
       vscBack = "#dfdfdf",             -- editor.background
       vscFront = "#2d2d2d",            -- editor.foreground
 
       -- Tabs
-      vscTabCurrent = "#dfdfdf",       -- match editor bg
-      vscTabOther = "#cdcdcd",         -- sideBarSectionHeader
-      vscTabOutside = "#d8d8d8",       -- sideBar.background
+      vscTabCurrent = "#dfdfdf",
+      vscTabOther = "#cdcdcd",
+      vscTabOutside = "#d8d8d8",
 
       -- Side Panel
-      vscLeftDark = "#c0c0c0",         -- sideBar.border
-      vscLeftMid = "#d8d8d8",          -- sideBar.background
-      vscLeftLight = "#dfdfdf",        -- editor bg
+      vscLeftDark = "#c0c0c0",
+      vscLeftMid = "#d8d8d8",
+      vscLeftLight = "#dfdfdf",
 
       -- Popups / Completion
-      vscPopupFront = "#000000",       -- editorSuggestWidget.foreground
-      vscPopupBack = "#e4e4e4",        -- editorSuggestWidget.background
-      vscPopupHighlightBlue = "#0b0080", -- editorSuggestWidget.selectedBackground
+      vscPopupFront = "#000000",
+      vscPopupBack = "#e4e4e4",
+      vscPopupHighlightBlue = "#0b0080",
       vscPopupHighlightGray = "#808080",
 
       -- Splits
-      vscSplitLight = "#c0c0c0",       -- sideBar.border
-      vscSplitDark = "#a8a8a8",        -- panel.border
-      vscSplitThumb = "#909090",       -- scrollbar
+      vscSplitLight = "#c0c0c0",
+      vscSplitDark = "#a8a8a8",
+      vscSplitThumb = "#909090",
 
       -- Cursor / Selection
-      vscCursorDarkDark = "#c9c8c8",   -- editor.lineHighlightBackground
-      vscCursorDark = "#808080",       -- editorLineNumber.foreground
-      vscCursorLight = "#284b63",      -- editorCursor.foreground
-      vscSelection = "#c5c9d6",        -- editor.selectionBackground (approx)
-      vscLineNumber = "#808080",       -- editorLineNumber.foreground
+      vscCursorDarkDark = "#c9c8c8",
+      vscCursorDark = "#808080",
+      vscCursorLight = "#284b63",
+      vscSelection = "#c5c9d6",
+      vscLineNumber = "#808080",
 
       -- Diff
       vscDiffRedDark = "#f5cccc",
@@ -60,7 +76,7 @@ function M.setup()
       vscDiffRedLightLight = "#f5cccc",
       vscDiffGreenDark = "#ccddbb",
       vscDiffGreenLight = "#dde8cc",
-      vscSearchCurrent = "#F8E71C",    -- editor.findMatchHighlightBackground
+      vscSearchCurrent = "#F8E71C",
       vscSearch = "#F8E71C",
 
       -- Git
@@ -76,89 +92,90 @@ function M.setup()
       vscGitSubmodule = "#0b0080",
 
       -- Indent / Context
-      vscContext = "#c5cdd4",          -- editorIndentGuide.background (approx)
-      vscContextCurrent = "#0b0080",   -- editorIndentGuide.activeBackground
+      vscContext = "#c5cdd4",
+      vscContextCurrent = "#0b0080",
 
       vscFoldBackground = "#d8d8d8",
+      vscSuggestion = "#5a6b7c",
 
-      vscSuggestion = "#5a6b7c",       -- gitlens / codelens color
-
-      -- ═══════════════════════════════════════════════
+      -- ═════════════════════════════════════════════
       -- SYNTAX COLORS — The Koala 6-Color Palette
-      -- ═══════════════════════════════════════════════
+      -- ═════════════════════════════════════════════
 
-      -- In vscode.nvim light mode, the syntax mapping is:
-      --   vscGray     → comments / line numbers
-      --   vscViolet   → keywords (navy-ish)
-      --   vscBlue     → keywords / control flow
-      --   vscLightBlue→ variables / identifiers
-      --   vscGreen    → comments
-      --   vscBlueGreen→ class names / constructors
-      --   vscYellow   → function names
-      --   vscYellowOrange → strings
-      --   vscOrange   → errors
-      --   vscLightRed → strings / escape chars
-      --   vscRed      → errors  
-      --   vscPink     → keywords (control flow like import/export)
-      --   vscLightGreen → numbers
+      -- NAVY #0b0080 — ALL keywords
+      vscBlue = "#0b0080",             -- @keyword, @constructor, @boolean, Type, StorageClass, @tag
+      vscPink = "#0b0080",             -- @keyword.import/conditional/repeat/return/exception, Statement, Keyword, Include
 
-      vscGray = "#6e7781",             -- SLATE (comments)
-      vscViolet = "#0b0080",           -- NAVY (keywords: if, for, return, class)
-      vscBlue = "#0b0080",             -- NAVY (keywords: function, var, const, let)
-      vscAccentBlue = "#0078d4",       -- UI accent (activity bar blue)
-      vscDarkBlue = "#284b63",         -- Cursor / status bar
+      -- BRONZE #ae6000 — types, interfaces, attributes
+      vscBlueGreen = "#ae6000",        -- @type, Structure, @module, @constant.macro
+
+      -- INK #000000 — variables, functions, punctuation
+      vscLightBlue = "#000000",        -- @variable, @property, @field, @variable.parameter
+      vscYellow = "#000000",           -- @function, @function.call, @function.method
+
+      -- MAROON #800000 — strings, numbers, constants
+      vscOrange = "#800000",           -- @string (light mode)
+      vscYellowOrange = "#800000",     -- String (vim standard)
+      vscLightRed = "#800000",         -- @string.escape
+      vscLightGreen = "#800000",       -- @number, @number.float
+
+      -- SLATE #6e7781 — comments
+      vscGreen = "#6e7781",            -- comments (vscode.nvim uses vscGreen for comments in light)
+      vscGray = "#6e7781",             -- also comments
+
+      -- Other
+      vscViolet = "#0b0080",           -- misc (navy)
+      vscRed = "#a31515",              -- errors
+      vscAccentBlue = "#0078d4",       -- UI accent
+      vscDarkBlue = "#284b63",         -- cursor/status
       vscMediumBlue = "#0078d4",       -- UI accent
-      vscDisabledBlue = "#808080",     -- Disabled
-      vscLightBlue = "#000000",        -- INK (variables, identifiers)
-      vscGreen = "#6e7781",            -- SLATE (comments — vscode.nvim uses this for comments in light mode)
-      vscBlueGreen = "#006600",        -- FOREST (class names)
-      vscLightGreen = "#800000",       -- MAROON (numbers — vscode.nvim maps numbers to LightGreen in light)
-      vscRed = "#a31515",              -- Red (errors)
-      vscOrange = "#a31515",           -- Red (error text)
-      vscLightRed = "#800000",         -- MAROON (strings)
-      vscYellowOrange = "#800000",     -- MAROON (strings — this is the main string color in light mode)
-      vscYellow = "#000000",           -- INK (function calls)
-      vscDarkYellow = "#F8E71C",       -- Search highlight
-      vscPink = "#0b0080",             -- NAVY (control flow: import, export, from, await)
-
-      -- Low contrast highlight
+      vscDisabledBlue = "#808080",     -- disabled
+      vscDarkYellow = "#F8E71C",       -- search
       vscDimHighlight = "#c9c8c8",     -- line highlight
 
-      -- UI extras
       vscUiBlue = "#284b63",
-      vscUiOrange = "#ae6000",         -- BRONZE
+      vscUiOrange = "#ae6000",
       vscPopupHighlightLightBlue = "#c5c9d6",
     },
 
-    -- Additional group overrides for Koala-specific styling
+    -- Fine-tune groups where vscode.nvim's mapping doesn't
+    -- match our Koala philosophy exactly
     group_overrides = {
-      -- Types/Interfaces → BRONZE
-      ["@type"] = { fg = "#ae6000" },
-      ["@type.builtin"] = { fg = "#ae6000" },
-      ["@type.definition"] = { fg = "#006600" },     -- class defs → FOREST
-      ["@tag.attribute"] = { fg = "#ae6000" },        -- HTML/JSX attrs → BRONZE
-      ["@attribute"] = { fg = "#ae6000" },
-      Type = { fg = "#ae6000" },
-      Typedef = { fg = "#ae6000" },
-      Structure = { fg = "#006600" },
-
-      -- Ensure constructors are FOREST
-      ["@constructor"] = { fg = "#006600" },
-
-      -- Ensure all plain code is INK
+      -- Variables/functions → INK (not LightBlue default)
       ["@variable"] = { fg = "#000000" },
       ["@variable.builtin"] = { fg = "#000000" },
       ["@variable.parameter"] = { fg = "#000000" },
       ["@variable.member"] = { fg = "#000000" },
       ["@property"] = { fg = "#000000" },
-      ["@field"] = { fg = "#000000" },
+      ["@function"] = { fg = "#000000" },
+      ["@function.call"] = { fg = "#000000" },
+      ["@function.method"] = { fg = "#000000" },
+      ["@function.method.call"] = { fg = "#000000" },
+      ["@function.builtin"] = { fg = "#000000" },
       ["@punctuation.delimiter"] = { fg = "#000000" },
       ["@punctuation.bracket"] = { fg = "#000000" },
       ["@punctuation.special"] = { fg = "#000000" },
+      ["@tag.delimiter"] = { fg = "#000000" },
 
-      -- Boolean/constant.language → MAROON (not keyword)
+      -- Types → BRONZE (vscBlueGreen is now bronze, but override @type.builtin too)
+      ["@type"] = { fg = "#ae6000" },
+      ["@type.builtin"] = { fg = "#ae6000" },
+      ["@type.definition"] = { fg = "#006600" },  -- class definitions → FOREST
+      ["@tag.attribute"] = { fg = "#ae6000" },
+      Type = { fg = "#ae6000" },
+
+      -- Classes/Constructors → FOREST
+      ["@constructor"] = { fg = "#006600" },
+      Structure = { fg = "#006600" },
+
+      -- Boolean → MAROON (not Blue)
       ["@boolean"] = { fg = "#800000" },
+      Boolean = { fg = "#800000" },
       ["@constant.builtin"] = { fg = "#800000" },
+
+      -- Module → INK
+      ["@module"] = { fg = "#000000" },
+      ["@module.builtin"] = { fg = "#000000" },
     },
   })
 
