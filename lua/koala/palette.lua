@@ -5,7 +5,7 @@ M.colors = {
     bg = "#dfdfdf",
     fg = "#2d2d2d",
     bg_highlight = "#c9c8c8",
-    find_match = "#F8E71C80", -- With transparency
+    find_match = "#F8E71C", -- Removed alpha channel for Neovim compatibility
     
     -- UI Containers
     border = "#c0c0c0",
