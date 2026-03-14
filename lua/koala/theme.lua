@@ -136,6 +136,8 @@ function M.setup()
         ["@keyword.import"] = { fg = palette.bronze, bold = true },
         ["@keyword.export"] = { fg = palette.bronze, bold = true },
         ["@keyword.directive"] = { fg = palette.bronze, bold = true },
+        ["@include"] = { fg = palette.bronze, bold = true },
+        ["@namespace"] = { fg = palette.inky_black },
         ["@exception"] = { link = "Exception" },
 
         ["@type"] = { link = "Type" },
