@@ -82,7 +82,7 @@ function M.setup()
         Exception = { fg = palette.navy, bold = true },
 
         PreProc = { fg = palette.navy },
-        Include = { fg = palette.navy, bold = true },
+        Include = { fg = palette.bronze, bold = true },
         Define = { fg = palette.navy, bold = true },
         Macro = { fg = palette.navy, bold = true },
         PreCondit = { fg = palette.navy, bold = true },
@@ -133,6 +133,9 @@ function M.setup()
         ["@label"] = { link = "Label" },
         ["@operator"] = { link = "Operator" },
         ["@keyword"] = { link = "Keyword" },
+        ["@keyword.import"] = { fg = palette.bronze, bold = true },
+        ["@keyword.export"] = { fg = palette.bronze, bold = true },
+        ["@keyword.directive"] = { fg = palette.bronze, bold = true },
         ["@exception"] = { link = "Exception" },
 
         ["@type"] = { link = "Type" },
