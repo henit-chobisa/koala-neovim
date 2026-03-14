@@ -256,9 +256,10 @@ function M.setup()
   hl(0, "@lsp.type.method",        { fg = c.ink })
   hl(0, "@lsp.type.parameter",     { fg = c.ink })
   -- IMPORTANT: Clear @lsp.type.keyword so it does NOT override
-  -- treesitter-specific groups like @keyword.import (bronze)
+  -- treesitter-specific groups like @keyword.import (bronze).
+  -- Without this, the LSP blanket-paints ALL keywords navy,
+  -- stomping on the more specific @keyword.import = bronze.
   hl(0, "@lsp.type.keyword",       {})
-  hl(0, "@lsp.type.keyword",       { fg = c.navy, bold = true })
   hl(0, "@lsp.type.namespace",     { fg = c.ink })
   hl(0, "@lsp.type.string",        { fg = c.maroon })
   hl(0, "@lsp.type.number",        { fg = c.maroon })
