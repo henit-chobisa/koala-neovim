@@ -98,7 +98,7 @@ function M.setup()
   hl(0, "Keyword",       { fg = c.navy, bold = true })
   hl(0, "Exception",     { fg = c.navy, bold = true })
   hl(0, "PreProc",       { fg = c.navy, bold = true })
-  hl(0, "Include",       { fg = c.navy, bold = true })
+  hl(0, "Include",       { fg = c.bronze, bold = true })  -- import/export → BRONZE per user
   hl(0, "Define",        { fg = c.navy, bold = true })
   hl(0, "Macro",         { fg = c.navy, bold = true })
   hl(0, "PreCondit",     { fg = c.navy, bold = true })
@@ -168,10 +168,10 @@ function M.setup()
   hl(0, "@keyword",                { fg = c.navy, bold = true })
   hl(0, "@keyword.function",       { fg = c.navy, bold = true })  -- storage.type (function/class)
   hl(0, "@keyword.operator",       { fg = c.navy, bold = true })  -- keyword.operator
-  hl(0, "@keyword.import",         { fg = c.navy, bold = true })  -- keyword.control.import
-  hl(0, "@keyword.export",         { fg = c.navy, bold = true })  -- keyword.control.export
+  hl(0, "@keyword.import",         { fg = c.bronze, bold = true }) -- import/export → BRONZE per user
+  hl(0, "@keyword.export",         { fg = c.bronze, bold = true }) -- import/export → BRONZE per user
   hl(0, "@keyword.return",         { fg = c.navy, bold = true })
-  hl(0, "@keyword.directive",      { fg = c.navy, bold = true })
+  hl(0, "@keyword.directive",      { fg = c.bronze, bold = true }) -- directives → BRONZE per user
   hl(0, "@keyword.conditional",    { fg = c.navy, bold = true })
   hl(0, "@keyword.repeat",        { fg = c.navy, bold = true })
   hl(0, "@keyword.exception",      { fg = c.navy, bold = true })
@@ -182,7 +182,7 @@ function M.setup()
   hl(0, "@label",                  { fg = c.navy, bold = true })
   hl(0, "@operator",               { fg = c.navy, bold = true })
   hl(0, "@exception",              { fg = c.navy, bold = true })
-  hl(0, "@include",                { fg = c.navy, bold = true })  -- keyword.control (import)
+  hl(0, "@include",                { fg = c.bronze, bold = true }) -- import → BRONZE per user
   hl(0, "@storageclass",           { fg = c.navy, bold = true })
   hl(0, "@tag",                    { fg = c.navy, bold = true })  -- entity.name.tag
   hl(0, "@tag.delimiter",          { fg = c.ink })                -- punctuation in tags → INK
@@ -255,6 +255,9 @@ function M.setup()
   hl(0, "@lsp.type.function",      { fg = c.ink })
   hl(0, "@lsp.type.method",        { fg = c.ink })
   hl(0, "@lsp.type.parameter",     { fg = c.ink })
+  -- IMPORTANT: Clear @lsp.type.keyword so it does NOT override
+  -- treesitter-specific groups like @keyword.import (bronze)
+  hl(0, "@lsp.type.keyword",       {})
   hl(0, "@lsp.type.keyword",       { fg = c.navy, bold = true })
   hl(0, "@lsp.type.namespace",     { fg = c.ink })
   hl(0, "@lsp.type.string",        { fg = c.maroon })
