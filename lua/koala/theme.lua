@@ -398,6 +398,15 @@ function M.setup()
   hl(0, "IblIndent",  { fg = c.indent })
   hl(0, "IblScope",   { fg = c.indent_active })
 
+  -- Floaterm (lazygit, terminals)
+  hl(0, "Floaterm",       { bg = c.bg })
+  hl(0, "FloatermBorder", { fg = "#b0b0b0", bg = c.bg })
+
+  -- Netrw (file browser)
+  hl(0, "netrwDir",       { fg = c.navy })
+  hl(0, "netrwExe",       { fg = c.forest })
+  hl(0, "netrwSymLink",   { fg = c.bronze })
+
   -- ── TERMINAL ───────────────────────────────────────────────────
 
   vim.g.terminal_color_0  = c.ink
