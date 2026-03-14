@@ -1,6 +1,6 @@
 # Koala Theme for Neovim
 
-A light, clean theme ported from VS Code, featuring navy, maroon, forest green, and bronze syntax highlights.
+A light theme ported from VS Code, using [Mofiqul/vscode.nvim](https://github.com/Mofiqul/vscode.nvim) as the rendering engine with Koala's custom palette.
 
 ## Installation
 
@@ -8,18 +8,23 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-  "YOUR_GITHUB_USERNAME/koala.nvim",
+  "henit-chobisa/koala-neovim",
+  dependencies = { "Mofiqul/vscode.nvim" },
   lazy = false,
   priority = 1000,
   config = function()
-    vim.cmd([[colorscheme koala]])
+    require("koala").setup()
   end,
 }
 ```
 
-## Usage
+## Colors
 
-```lua
-require('koala').setup()
-vim.cmd('colorscheme koala')
-```
+| Role | Hex | Usage |
+|------|-----|-------|
+| Ink | `#000000` | Variables, functions, punctuation |
+| Navy | `#0b0080` | Keywords, storage, tags |
+| Maroon | `#800000` | Strings, numbers, constants |
+| Forest | `#006600` | Class names |
+| Bronze | `#ae6000` | Types, interfaces, attributes |
+| Slate | `#6e7781` | Comments (italic) |

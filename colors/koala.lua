@@ -1,1 +1,1 @@
-require("koala.theme").setup()
+require("koala").setup()
