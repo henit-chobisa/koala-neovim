@@ -98,7 +98,7 @@ M.light = {
 -- while the 6-role grammar reads identically to the light theme.
 M.dark = {
   bg            = "#141414",
-  fg            = "#c6cad4",
+  fg            = "#e0e1e4",
   line_hl       = "#1c1c1c",
   selection     = "#2b3344",
   border        = "#292929",
@@ -139,7 +139,7 @@ M.dark = {
   error_bg      = "#e8797f",
 
   -- The 6 Koala syntax colors — soft, curated siblings of the light set
-  ink           = "#c6cad4",  -- variables, functions, punctuation
+  ink           = "#e0e1e4",  -- variables, functions, punctuation
   navy          = "#7dacff",  -- keywords, storage, tags
   maroon        = "#e88f8f",  -- strings, numbers, constants
   forest        = "#9dd07e",  -- class names

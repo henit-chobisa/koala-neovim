@@ -38,7 +38,7 @@ require("koala").setup("dark")  -- dark   (koala-bengaluru)
 
 | Role | Usage | `koala-hyderabad` (light) | `koala-bengaluru` (dark) |
 |------|-------|-----------------|--------------------------|
-| Ink | Variables, functions, punctuation | `#000000` | `#c6cad4` |
+| Ink | Variables, functions, punctuation | `#000000` | `#e0e1e4` |
 | Navy | Keywords, storage, tags | `#0b0080` | `#7dacff` |
 | Maroon | Strings, numbers, constants | `#800000` | `#e88f8f` |
 | Forest | Class names | `#006600` | `#9dd07e` |
@@ -50,7 +50,7 @@ require("koala").setup("dark")  -- dark   (koala-bengaluru)
 | Element | Hex |
 |---------|-----|
 | Background | `#141414` |
-| Foreground | `#c6cad4` |
+| Foreground | `#e0e1e4` |
 | Cursor line | `#1c1c1c` |
 | Selection | `#2b3344` |
 | Status bar | `#1c2029` |
