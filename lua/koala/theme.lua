@@ -1,17 +1,38 @@
 -- Koala Theme for Neovim — Standalone, no dependencies.
 --
--- Token colors (from the JSON):
---   INK     #000000  →  variables, functions, punctuation
---   NAVY    #0b0080  →  keywords, storage, tags
---   MAROON  #800000  →  strings, numbers, booleans, constants
---   FOREST  #006600  →  class names
---   BRONZE  #ae6000  →  types, interfaces, attributes
---   SLATE   #6e7781  →  comments (italic)
+-- One highlight engine, two palettes (see koala.palette):
+--   "light"  →  koala-hyderabad  (paper)
+--   "dark"   →  koala-bengaluru  (soft evening)
+--
+-- The 6 syntax roles are shared across both variants:
+--   INK     →  variables, functions, punctuation
+--   NAVY    →  keywords, storage, tags
+--   MAROON  →  strings, numbers, booleans, constants
+--   FOREST  →  class names
+--   BRONZE  →  types, interfaces, attributes
+--   SLATE   →  comments (italic)
 
-local c = require("koala.palette").colors
+local palette = require("koala.palette")
 local M = {}
 
-function M.setup()
+-- Resolve the variant from setup() input.
+-- Accepts: nil/"light"/"koala"/"hyderabad"/"koala-hyderabad"  → light
+--          "dark"/"bengaluru"/"koala-bengaluru"               → dark
+--          { variant = "dark" } table form
+local function resolve(opts)
+  local v = opts
+  if type(opts) == "table" then
+    v = opts.variant
+  end
+  if v == "dark" or v == "bengaluru" or v == "koala-bengaluru" then
+    return "dark", palette.dark, "koala-bengaluru"
+  end
+  return "light", palette.light, "koala-hyderabad"
+end
+
+function M.setup(opts)
+  local variant, c, name = resolve(opts)
+
   if vim.g.colors_name then
     vim.cmd("hi clear")
   end
@@ -19,9 +40,9 @@ function M.setup()
     vim.cmd("syntax reset")
   end
 
-  vim.g.colors_name = "koala"
+  vim.g.colors_name = name
   vim.o.termguicolors = true
-  vim.o.background = "light"
+  vim.o.background = variant == "dark" and "dark" or "light"
 
   -- ┌─────────────────────────────────────────────────────────────┐
   -- │ DISABLE LSP SEMANTIC TOKENS                                 │
@@ -46,9 +67,9 @@ function M.setup()
   -- ── EDITOR UI ──────────────────────────────────────────────────
 
   hl(0, "Normal",        { fg = c.fg, bg = c.bg })
-  hl(0, "NormalFloat",   { fg = c.ink, bg = "#ececec" })          -- softer float bg
-  hl(0, "FloatBorder",   { fg = "#b0b0b0", bg = "#ececec" })     -- subtle gray border
-  hl(0, "FloatTitle",    { fg = c.fg, bg = "#ececec" })
+  hl(0, "NormalFloat",   { fg = c.ink, bg = c.menu_bg })
+  hl(0, "FloatBorder",   { fg = c.menu_border, bg = c.menu_bg })
+  hl(0, "FloatTitle",    { fg = c.fg, bg = c.menu_bg })
   hl(0, "ColorColumn",   { bg = c.line_hl })
   hl(0, "Cursor",        { fg = c.bg, bg = c.cursor })
   hl(0, "CursorLine",    { bg = c.line_hl })
@@ -70,18 +91,18 @@ function M.setup()
   hl(0, "NonText",       { fg = c.slate })
 
   -- Popups / Autocomplete — match VS Code suggest widget
-  hl(0, "Pmenu",         { fg = c.ink, bg = "#ececec" })          -- editorSuggestWidget.background
-  hl(0, "PmenuSel",      { fg = "#ffffff", bg = "#0b0080" })     -- selected → navy bg, white text
-  hl(0, "PmenuSbar",     { bg = "#d8d8d8" })                     -- scrollbar track
-  hl(0, "PmenuThumb",    { bg = "#909090" })                     -- scrollbar thumb
-  hl(0, "PmenuKind",     { fg = c.slate, bg = "#ececec" })       -- kind label (Variable, Function)
-  hl(0, "PmenuKindSel",  { fg = "#c0c0ff", bg = "#0b0080" })    -- kind when selected
-  hl(0, "PmenuExtra",    { fg = c.slate, bg = "#ececec" })
-  hl(0, "PmenuExtraSel", { fg = "#c0c0ff", bg = "#0b0080" })
+  hl(0, "Pmenu",         { fg = c.ink, bg = c.menu_bg })
+  hl(0, "PmenuSel",      { fg = c.sel_fg, bg = c.sel_bg })
+  hl(0, "PmenuSbar",     { bg = c.scroll_track })
+  hl(0, "PmenuThumb",    { bg = c.scroll_thumb })
+  hl(0, "PmenuKind",     { fg = c.slate, bg = c.menu_bg })
+  hl(0, "PmenuKindSel",  { fg = c.sel_dim_fg, bg = c.sel_bg })
+  hl(0, "PmenuExtra",    { fg = c.slate, bg = c.menu_bg })
+  hl(0, "PmenuExtraSel", { fg = c.sel_dim_fg, bg = c.sel_bg })
 
   hl(0, "Question",      { fg = c.navy })
   hl(0, "QuickFixLine",  { fg = c.ink, bg = c.selection })
-  hl(0, "Search",        { fg = c.ink, bg = c.find_match })
+  hl(0, "Search",        { fg = c.search_fg, bg = c.search_bg })
   hl(0, "SpecialKey",    { fg = c.slate })
   hl(0, "SpellBad",      { sp = c.ansi_red, undercurl = true })
   hl(0, "SpellCap",      { sp = c.ansi_yellow, undercurl = true })
@@ -96,11 +117,11 @@ function M.setup()
   hl(0, "Visual",        { bg = c.selection })
   hl(0, "VisualNOS",     { bg = c.selection })
   hl(0, "WarningMsg",    { fg = c.ansi_yellow })
-  hl(0, "WildMenu",      { fg = "#ffffff", bg = "#0b0080" })
-  hl(0, "DiffAdd",       { fg = c.diff_green, bg = c.line_hl })
-  hl(0, "DiffChange",    { fg = c.diff_blue, bg = c.line_hl })
-  hl(0, "DiffDelete",    { fg = c.diff_red, bg = c.line_hl })
-  hl(0, "DiffText",      { fg = c.ink, bg = c.line_hl })
+  hl(0, "WildMenu",      { fg = c.sel_fg, bg = c.sel_bg })
+  hl(0, "DiffAdd",       { fg = c.diff_green, bg = c.diff_add_bg })
+  hl(0, "DiffChange",    { fg = c.diff_blue, bg = c.diff_change_bg })
+  hl(0, "DiffDelete",    { fg = c.diff_red, bg = c.diff_delete_bg })
+  hl(0, "DiffText",      { fg = c.ink, bg = c.diff_text_bg })
 
   -- ── VIM STANDARD SYNTAX ───────────────────────────────────────
 
@@ -137,7 +158,7 @@ function M.setup()
   hl(0, "SpecialComment",{ fg = c.slate, italic = true })
   hl(0, "Underlined",    { underline = true })
   hl(0, "Ignore",        { fg = c.slate })
-  hl(0, "Error",         { fg = "#ffffff", bg = "#b81511" })
+  hl(0, "Error",         { fg = c.error_fg, bg = c.error_bg })
   hl(0, "Todo",          { fg = c.ansi_magenta })
 
   -- ── VIM SYNTAX FALLBACK (TypeScript / JavaScript) ──────────────
@@ -341,26 +362,26 @@ function M.setup()
   hl(0, "GitSignsDelete", { fg = c.diff_red, bg = c.bg })
 
   -- fzf-lua — clean, VS Code-like file picker
-  hl(0, "FzfLuaNormal",        { fg = c.ink, bg = "#ececec" })
-  hl(0, "FzfLuaBorder",        { fg = "#b0b0b0", bg = "#ececec" })
-  hl(0, "FzfLuaTitle",         { fg = c.fg, bg = "#ececec" })
+  hl(0, "FzfLuaNormal",        { fg = c.ink, bg = c.menu_bg })
+  hl(0, "FzfLuaBorder",        { fg = c.menu_border, bg = c.menu_bg })
+  hl(0, "FzfLuaTitle",         { fg = c.fg, bg = c.menu_bg })
   hl(0, "FzfLuaPreviewNormal", { fg = c.fg, bg = c.bg })
-  hl(0, "FzfLuaPreviewBorder", { fg = "#b0b0b0", bg = c.bg })
+  hl(0, "FzfLuaPreviewBorder", { fg = c.menu_border, bg = c.bg })
   hl(0, "FzfLuaPreviewTitle",  { fg = c.fg, bg = c.bg })
-  hl(0, "FzfLuaCursorLine",    { bg = "#d0d4dd" })               -- softer selection highlight
-  hl(0, "FzfLuaCursorLineNr",  { fg = c.ink, bg = "#d0d4dd" })
-  hl(0, "FzfLuaSearch",        { fg = c.list_hl })               -- match highlight → red
+  hl(0, "FzfLuaCursorLine",    { bg = c.menu_sel_bg })
+  hl(0, "FzfLuaCursorLineNr",  { fg = c.ink, bg = c.menu_sel_bg })
+  hl(0, "FzfLuaSearch",        { fg = c.list_hl })               -- match highlight
   hl(0, "FzfLuaHeaderBind",    { fg = c.accent })
   hl(0, "FzfLuaHeaderText",    { fg = c.fg })
   hl(0, "FzfLuaFzfNormal",     { fg = c.ink })
   hl(0, "FzfLuaFzfMatch",      { fg = c.list_hl })               -- fuzzy match color
-  hl(0, "FzfLuaFzfBorder",     { fg = "#b0b0b0" })
+  hl(0, "FzfLuaFzfBorder",     { fg = c.menu_border })
   hl(0, "FzfLuaFzfPointer",    { fg = c.accent })
-  hl(0, "FzfLuaFzfCursorLine", { bg = "#d0d4dd" })
+  hl(0, "FzfLuaFzfCursorLine", { bg = c.menu_sel_bg })
 
   -- nvim-cmp — autocomplete popup
   hl(0, "CmpItemAbbr",              { fg = c.ink })            -- normal text
-  hl(0, "CmpItemAbbrMatch",         { fg = c.list_hl })        -- matched characters → red
+  hl(0, "CmpItemAbbrMatch",         { fg = c.list_hl })        -- matched characters
   hl(0, "CmpItemAbbrMatchFuzzy",    { fg = c.list_hl })        -- fuzzy matched
   hl(0, "CmpItemAbbrDeprecated",    { fg = c.slate, strikethrough = true })
   hl(0, "CmpItemKind",              { fg = c.slate })          -- kind label text
@@ -384,14 +405,14 @@ function M.setup()
   hl(0, "CmpItemMenu",              { fg = c.slate })          -- source label
 
   -- Telescope (kept for compatibility)
-  hl(0, "TelescopeBorder",        { fg = "#b0b0b0", bg = "#ececec" })
-  hl(0, "TelescopeNormal",        { fg = c.ink, bg = "#ececec" })
-  hl(0, "TelescopeSelection",     { fg = c.ink, bg = "#d0d4dd" })
+  hl(0, "TelescopeBorder",        { fg = c.menu_border, bg = c.menu_bg })
+  hl(0, "TelescopeNormal",        { fg = c.ink, bg = c.menu_bg })
+  hl(0, "TelescopeSelection",     { fg = c.ink, bg = c.menu_sel_bg })
   hl(0, "TelescopeMatching",      { fg = c.list_hl })
-  hl(0, "TelescopePromptBorder",  { fg = "#b0b0b0", bg = "#ececec" })
-  hl(0, "TelescopePromptNormal",  { fg = c.ink, bg = "#ececec" })
+  hl(0, "TelescopePromptBorder",  { fg = c.menu_border, bg = c.menu_bg })
+  hl(0, "TelescopePromptNormal",  { fg = c.ink, bg = c.menu_bg })
   hl(0, "TelescopePromptPrefix",  { fg = c.accent })
-  hl(0, "TelescopePreviewBorder", { fg = "#b0b0b0", bg = c.bg })
+  hl(0, "TelescopePreviewBorder", { fg = c.menu_border, bg = c.bg })
   hl(0, "TelescopePreviewNormal", { fg = c.fg, bg = c.bg })
 
   -- Indent guides
@@ -400,7 +421,7 @@ function M.setup()
 
   -- Floaterm (lazygit, terminals)
   hl(0, "Floaterm",       { bg = c.bg })
-  hl(0, "FloatermBorder", { fg = "#b0b0b0", bg = c.bg })
+  hl(0, "FloatermBorder", { fg = c.menu_border, bg = c.bg })
 
   -- Netrw (file browser)
   hl(0, "netrwDir",       { fg = c.navy })
