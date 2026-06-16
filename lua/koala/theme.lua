@@ -118,10 +118,22 @@ function M.setup(opts)
   hl(0, "VisualNOS",     { bg = c.selection })
   hl(0, "WarningMsg",    { fg = c.ansi_yellow })
   hl(0, "WildMenu",      { fg = c.sel_fg, bg = c.sel_bg })
-  hl(0, "DiffAdd",       { fg = c.diff_green, bg = c.diff_add_bg })
-  hl(0, "DiffChange",    { fg = c.diff_blue, bg = c.diff_change_bg })
-  hl(0, "DiffDelete",    { fg = c.diff_red, bg = c.diff_delete_bg })
-  hl(0, "DiffText",      { fg = c.ink, bg = c.diff_text_bg })
+
+  -- Diff line backgrounds — bg only, so syntax stays readable through the tint
+  hl(0, "DiffAdd",       { bg = c.diff_add_bg })
+  hl(0, "DiffChange",    { bg = c.diff_change_bg })
+  hl(0, "DiffDelete",    { bg = c.diff_delete_bg })
+  hl(0, "DiffText",      { bg = c.diff_text_bg, bold = true })
+  -- diff *syntax* groups (filetype=diff, e.g. octo PR diff) — fg only
+  hl(0, "diffAdded",     { fg = c.diff_add_fg })
+  hl(0, "diffRemoved",   { fg = c.diff_delete_fg })
+  hl(0, "diffChanged",   { fg = c.diff_change_fg })
+  hl(0, "diffLine",      { fg = c.diff_blue, bold = true })
+  hl(0, "diffFile",      { fg = c.ink, bold = true })
+  hl(0, "diffNewFile",   { fg = c.diff_green, bold = true })
+  hl(0, "diffOldFile",   { fg = c.diff_red, bold = true })
+  hl(0, "diffIndexLine", { fg = c.navy })
+  hl(0, "diffSubname",   { fg = c.diff_blue })
 
   -- ── VIM STANDARD SYNTAX ───────────────────────────────────────
 

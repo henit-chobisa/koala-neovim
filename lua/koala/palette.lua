@@ -81,11 +81,14 @@ M.light = {
   diff_green    = "#006600",
   diff_blue     = "#0b0080",
 
-  -- Diff background tints
-  diff_add_bg    = "#c9c8c8",
-  diff_change_bg = "#c9c8c8",
-  diff_delete_bg = "#c9c8c8",
-  diff_text_bg   = "#c9c8c8",
+  -- Diff line backgrounds (light tints) + readable fg for diff syntax
+  diff_add_bg    = "#bce8bc",
+  diff_change_bg = "#e2ead0",
+  diff_delete_bg = "#f2c2c2",
+  diff_text_bg   = "#f3cd7a",
+  diff_add_fg    = "#008000",
+  diff_change_fg = "#0b0080",
+  diff_delete_fg = "#e00000",
 }
 
 -- ── DARK — "Koala Bengaluru" (soft evening) ──────────────────────────
@@ -155,11 +158,14 @@ M.dark = {
   diff_green    = "#9cc59b",
   diff_blue     = "#8fb6e3",
 
-  -- Diff background tints — subtle, channel-tinted
+  -- Diff line backgrounds — subtle channel tints + readable fg for diff syntax
   diff_add_bg    = "#23302a",
   diff_change_bg = "#243040",
   diff_delete_bg = "#332629",
   diff_text_bg   = "#2b3a4c",
+  diff_add_fg    = "#9cc59b",
+  diff_change_fg = "#8fb6e3",
+  diff_delete_fg = "#d98a8a",
 }
 
 -- Backward compat: `colors` is the original light table.
