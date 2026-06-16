@@ -92,80 +92,81 @@ M.light = {
 }
 
 -- ── DARK — "Koala Bengaluru" (soft evening) ──────────────────────────
--- Warm-neutral charcoal base. Every syntax color is a desaturated
--- pastel sibling of the light role — never neon — so long sessions
--- stay easy on the eyes while the 6-role grammar reads identically.
+-- Neutral near-black base (#141414) — no color cast on the editor. The
+-- syntax colors are soft, medium-saturation hues curated for clear
+-- separation without glare, so long sessions stay easy on the eyes
+-- while the 6-role grammar reads identically to the light theme.
 M.dark = {
-  bg            = "#1e2024",
-  fg            = "#cccfd4",
-  line_hl       = "#26282d",
-  selection     = "#33394a",
-  border        = "#33363d",
-  panel_border  = "#3a3d44",
-  panel_bg      = "#24262b",
-  float_bg      = "#26282d",
-  float_border  = "#3a3d44",
-  float_sel_bg  = "#33415c",
-  float_sel_fg  = "#e8edf4",
-  line_nr       = "#565c66",
-  line_nr_cur   = "#9fb3d4",
-  cursor        = "#9fb3d4",
-  status_bg     = "#28313f",
-  status_fg     = "#cdd2d8",
-  accent        = "#8fb6e3",
-  list_hl       = "#d98a8a",
-  indent        = "#2c2f35",
-  indent_active = "#4a5570",
-  codelens      = "#5f6772",
+  bg            = "#141414",
+  fg            = "#c6cad4",
+  line_hl       = "#1c1c1c",
+  selection     = "#2b3344",
+  border        = "#292929",
+  panel_border  = "#303030",
+  panel_bg      = "#181818",
+  float_bg      = "#1b1b1b",
+  float_border  = "#313131",
+  float_sel_bg  = "#2d3a52",
+  float_sel_fg  = "#dde4f0",
+  line_nr       = "#474747",
+  line_nr_cur   = "#7dacff",
+  cursor        = "#c6cad4",
+  status_bg     = "#1c2029",
+  status_fg     = "#c6cad4",
+  accent        = "#7dacff",
+  list_hl       = "#ef8aa0",
+  indent        = "#232323",
+  indent_active = "#39435a",
+  codelens      = "#585e69",
 
   -- Search / find-match — muted amber, dark text for contrast
-  find_match    = "#c9a227",
-  search_fg     = "#1e2024",
-  search_bg     = "#c9a227",
+  find_match    = "#d0a833",
+  search_fg     = "#141414",
+  search_bg     = "#d0a833",
 
   -- Menus / popups / borders
-  menu_bg       = "#26282d",
-  menu_border   = "#3a3d44",
-  menu_sel_bg   = "#2f3744",
-  sel_bg        = "#33415c",
-  sel_fg        = "#e8edf4",
+  menu_bg       = "#1b1b1b",
+  menu_border   = "#313131",
+  menu_sel_bg   = "#282d38",
+  sel_bg        = "#2d3a52",
+  sel_fg        = "#dde4f0",
   sel_dim_fg    = "#9fb3d4",
-  scroll_track  = "#2c2e34",
-  scroll_thumb  = "#4a4d55",
+  scroll_track  = "#1b1b1b",
+  scroll_thumb  = "#3a3a3a",
 
   -- Inline error chip
-  error_fg      = "#1e2024",
-  error_bg      = "#d98a8a",
+  error_fg      = "#141414",
+  error_bg      = "#e8797f",
 
-  -- The 6 Koala syntax colors — soft pastel siblings of the light set
-  ink           = "#cccfd4",  -- variables, functions, punctuation
-  navy          = "#8fb6e3",  -- keywords, storage, tags
-  maroon        = "#d49a8c",  -- strings, numbers, constants
-  forest        = "#9cc59b",  -- class names
-  bronze        = "#d6b780",  -- types, interfaces, attributes
-  slate         = "#6f7680",  -- comments (italic)
+  -- The 6 Koala syntax colors — soft, curated siblings of the light set
+  ink           = "#c6cad4",  -- variables, functions, punctuation
+  navy          = "#7dacff",  -- keywords, storage, tags
+  maroon        = "#e88f8f",  -- strings, numbers, constants
+  forest        = "#9dd07e",  -- class names
+  bronze        = "#e2b574",  -- types, interfaces, attributes
+  slate         = "#6b7180",  -- comments (italic)
 
   -- ANSI
-  ansi_red      = "#d98a8a",
-  ansi_green    = "#9cc59b",
-  ansi_yellow   = "#d6b780",
-  ansi_blue     = "#8fb6e3",
-  ansi_cyan     = "#8fc5c2",
-  ansi_magenta  = "#c4a3d6",
+  ansi_red      = "#e8797f",
+  ansi_green    = "#9dd07e",
+  ansi_yellow   = "#e2b574",
+  ansi_blue     = "#7dacff",
+  ansi_cyan     = "#74c7c2",
+  ansi_magenta  = "#c4a2e8",
 
   -- Diff foreground
-  diff_red      = "#d98a8a",
-  diff_green    = "#9cc59b",
-  diff_blue     = "#8fb6e3",
+  diff_red      = "#e8797f",
+  diff_green    = "#9dd07e",
+  diff_blue     = "#7dacff",
 
   -- Diff line backgrounds — subtle channel tints + readable fg for diff syntax
-  diff_add_bg    = "#23302a",
-  diff_change_bg = "#243040",
-  diff_delete_bg = "#332629",
-  diff_text_bg   = "#2b3a4c",
-  diff_add_fg    = "#9cc59b",
-  diff_change_fg = "#8fb6e3",
-  diff_delete_fg = "#d98a8a",
+  diff_add_bg    = "#16261a",
+  diff_change_bg = "#16212e",
+  diff_delete_bg = "#271619",
+  diff_text_bg   = "#1d2c3a",
+  diff_add_fg    = "#9dd07e",
+  diff_change_fg = "#7dacff",
+  diff_delete_fg = "#e8797f",
 }
 
 -- Backward compat: `colors` is the original light table.

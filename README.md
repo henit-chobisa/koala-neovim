@@ -38,20 +38,20 @@ require("koala").setup("dark")  -- dark   (koala-bengaluru)
 
 | Role | Usage | `koala-hyderabad` (light) | `koala-bengaluru` (dark) |
 |------|-------|-----------------|--------------------------|
-| Ink | Variables, functions, punctuation | `#000000` | `#cccfd4` |
-| Navy | Keywords, storage, tags | `#0b0080` | `#8fb6e3` |
-| Maroon | Strings, numbers, constants | `#800000` | `#d49a8c` |
-| Forest | Class names | `#006600` | `#9cc59b` |
-| Bronze | Types, interfaces, attributes | `#ae6000` | `#d6b780` |
-| Slate | Comments (italic) | `#6e7781` | `#6f7680` |
+| Ink | Variables, functions, punctuation | `#000000` | `#c6cad4` |
+| Navy | Keywords, storage, tags | `#0b0080` | `#7dacff` |
+| Maroon | Strings, numbers, constants | `#800000` | `#e88f8f` |
+| Forest | Class names | `#006600` | `#9dd07e` |
+| Bronze | Types, interfaces, attributes | `#ae6000` | `#e2b574` |
+| Slate | Comments (italic) | `#6e7781` | `#6b7180` |
 
 ### Koala Bengaluru base
 
 | Element | Hex |
 |---------|-----|
-| Background | `#1e2024` |
-| Foreground | `#cccfd4` |
-| Cursor line | `#26282d` |
-| Selection | `#33394a` |
-| Status bar | `#28313f` |
-| Accent | `#8fb6e3` |
+| Background | `#141414` |
+| Foreground | `#c6cad4` |
+| Cursor line | `#1c1c1c` |
+| Selection | `#2b3344` |
+| Status bar | `#1c2029` |
+| Accent | `#7dacff` |
